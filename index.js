@@ -4268,12 +4268,12 @@ const getOpenSeaNFTs = async (walletAddress) => {
   );
 
   const body = await response.json();
-  const assets = body.assets;
+  let assets = body.assets;
   console.log(assets);
   console.log(JSON.stringify(assets));
 
-  if (assets.length >= 10) {
-    assets = assets.slice(0, 12);
+  if (assets.length >= 24) {
+    assets = assets.slice(0, 24);
   }
 
   const array = [];
