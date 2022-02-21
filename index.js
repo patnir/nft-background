@@ -9,13 +9,6 @@ walletConnected.style.display = "none";
 
 let walletAddress = "";
 
-walletConnectButton.addEventListener("click", async () => {
-  walletAddress = "0xd45058bf25bbd8f586124c479d384c8c708ce23a";
-  await getOpenSeaNFTs(walletAddress);
-  walletDisconnected.style.display = "none";
-  walletConnected.style.display = "block";
-});
-
 let assets = [
   {
     id: 304640453,
@@ -4302,3 +4295,50 @@ button.addEventListener("click", async () => {
     link.click();
   });
 });
+
+walletConnectButton.addEventListener("click", async () => {
+  if (!walletAddress || walletAddress === "") {
+    await connectEthereumWallet("eth_requestAccounts");
+  }
+});
+
+const connectEthereumWallet = async (requestMethod) => {
+  try {
+    const { ethereum } = window;
+    if (!ethereum) {
+      alert("Get an ethereum wallet!");
+      return;
+    }
+
+    ethereum.on("chainChanged", (_chainId) => window.location.reload());
+    ethereum.on("accountsChanged", (event) => {
+      console.log("accounts changed");
+      console.log(event);
+      if (event.length === 0) {
+        removeWalletInfoOnButtons();
+      }
+    });
+
+    const result = await confirmOnRightChain();
+    if (!result) {
+      currentWallet = null;
+      return;
+    }
+
+    const accounts = await ethereum.request({ method: requestMethod });
+
+    if (accounts.length === 0) {
+      console.log("No ethereum accounts found!");
+      return;
+    }
+
+    console.log("Connected", accounts[0]);
+
+    walletAddress = accounts[0];
+    await getOpenSeaNFTs(walletAddress);
+    walletDisconnected.style.display = "none";
+    walletConnected.style.display = "block";
+  } catch (error) {
+    console.log(error);
+  }
+};
