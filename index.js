@@ -4279,7 +4279,7 @@ const getOpenSeaNFTs = async (walletAddress) => {
   const array = [];
   assets.forEach((asset) => {
     array.push(
-      `<div class="my-4"><a key=${asset.id} target="_blank" rel="noopener noreferrer" href=${asset.permalink}><img src=${asset.image_preview_url} alt=${asset.token_id} /></a></div>`
+      `<a key=${asset.id} target="_blank" rel="noopener noreferrer" href=${asset.permalink}><img src=${asset.image_preview_url} alt=${asset.token_id} /></a>`
     );
   });
 
