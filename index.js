@@ -1,4 +1,3 @@
-// const domtoimage = require("dom-to-image");
 const canvas = document.getElementById("canvas");
 const button = document.getElementById("button");
 const walletConnectButton = document.getElementById("wallet-connect-button");
@@ -4264,13 +4263,7 @@ let assets = [
   },
 ];
 
-// console.log(ethers);
-
 const openSeaNftContainer = document.getElementById("opensea-nft-container");
-
-// window.addEventListener("load", async () => {
-
-// });
 
 const getOpenSeaNFTs = async (walletAddress) => {
   //   console.log("Getting your NFTs from OpenSea");
@@ -4308,14 +4301,4 @@ button.addEventListener("click", async () => {
     link.href = dataUrl;
     link.click();
   });
-  //   domtoimage
-  //     .toPng(canvas)
-  //     .then(function (dataUrl) {
-  //       var img = new Image();
-  //       img.src = dataUrl;
-  //       document.body.appendChild(img);
-  //     })
-  //     .catch(function (error) {
-  //       console.error("oops, something went wrong!", error);
-  //     });
 });
