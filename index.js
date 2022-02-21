@@ -4,6 +4,8 @@ const walletConnectButton = document.getElementById("wallet-connect-button");
 const nftText = document.getElementById("nft-text");
 const walletDisconnected = document.getElementById("wallet-disconnected");
 const walletConnected = document.getElementById("wallet-connected");
+const CHAIN_ID = "0x1";
+const NETWORK_NAME = "Mainnet";
 
 walletConnected.style.display = "none";
 
@@ -4301,6 +4303,17 @@ walletConnectButton.addEventListener("click", async () => {
     await connectEthereumWallet("eth_requestAccounts");
   }
 });
+
+const confirmOnRightChain = async () => {
+  let chainId = await window.ethereum.request({ method: "eth_chainId" });
+  console.log("Connected to chain " + chainId);
+
+  if (chainId !== CHAIN_ID) {
+    alert(`You are not connected to the ${NETWORK_NAME} Network!`);
+    return false;
+  }
+  return true;
+};
 
 const connectEthereumWallet = async (requestMethod) => {
   try {
