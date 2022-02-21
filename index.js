@@ -1,10 +1,21 @@
 // const domtoimage = require("dom-to-image");
 const canvas = document.getElementById("canvas");
 const button = document.getElementById("button");
-const button2 = document.getElementById("button2");
+const walletConnectButton = document.getElementById("wallet-connect-button");
 const nftText = document.getElementById("nft-text");
+const walletDisconnected = document.getElementById("wallet-disconnected");
+const walletConnected = document.getElementById("wallet-connected");
 
-const walletAddress = "0xd45058bf25bbd8f586124c479d384c8c708ce23a";
+walletConnected.style.display = "none";
+
+let walletAddress = "";
+
+walletConnectButton.addEventListener("click", async () => {
+  walletAddress = "0xd45058bf25bbd8f586124c479d384c8c708ce23a";
+  await getOpenSeaNFTs(walletAddress);
+  walletDisconnected.style.display = "none";
+  walletConnected.style.display = "block";
+});
 
 let assets = [
   {
@@ -4257,9 +4268,9 @@ let assets = [
 
 const openSeaNftContainer = document.getElementById("opensea-nft-container");
 
-window.addEventListener("load", async () => {
-  await getOpenSeaNFTs(walletAddress);
-});
+// window.addEventListener("load", async () => {
+
+// });
 
 const getOpenSeaNFTs = async (walletAddress) => {
   //   console.log("Getting your NFTs from OpenSea");
